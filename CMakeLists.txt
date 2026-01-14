@@ -30,9 +30,14 @@ FetchContent_MakeAvailable(googletest)
 # 2. 라이브러리 타겟 설정 (Header-Only)
 # ==========================================
 add_library(BinarySearchTreeLib INTERFACE)
+add_library(AVLTreeLib INTERFACE)
 
 target_include_directories(BinarySearchTreeLib INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/BinarySearchTreeLib
+)
+
+target_include_directories(AVLTreeLib INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/AVLTreeLib
 )
 
 # ==========================================
@@ -45,9 +50,19 @@ add_executable(BinarySearchTreeUnitTest
     BinarySearchTreeUnitTest/BinarySearchTreeUnitTest.cpp
 )
 
+add_executable(AVLTreeUnitTest
+    AVLTreeUnitTest/AVLTreeUnitTest.cpp
+)
+
 target_link_libraries(BinarySearchTreeUnitTest
     PRIVATE
     BinarySearchTreeLib
+    GTest::gtest_main
+)
+
+target_link_libraries(AVLTreeUnitTest
+    PRIVATE
+    AVLTreeLib
     GTest::gtest_main
 )
 
@@ -56,3 +71,4 @@ target_link_libraries(BinarySearchTreeUnitTest
 # ==========================================
 include(GoogleTest)
 gtest_discover_tests(BinarySearchTreeUnitTest)
+gtest_discover_tests(AVLTreeUnitTest)
